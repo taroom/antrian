@@ -1,6 +1,7 @@
 <?php
 include 'konfigurasi/database.php';
 include 'konfigurasi/fungsi.php';
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
