@@ -8,7 +8,7 @@ $password = md5($postdata['passwordku']); //di enkripsi
 // lakukan query ke database untuk mendapatkan data user
 $query = $db->query("SELECT * FROM user WHERE myusername = '" . $username . "' AND mypassword = '" . $password . "'");
 if ($db->connect_errno) {
-    echo "Failed to connect to MySQL: " . $db->connect_error;
+    echo "Gagal terhubung ke database : " . $db->connect_error;
     exit();
 }
 
