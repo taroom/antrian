@@ -15,7 +15,7 @@ session_start();
 
 <body>
     <?php
-    include 'halaman/index.php';
+    include 'halaman/index-halaman.php';
     ?>
 </body>
 
