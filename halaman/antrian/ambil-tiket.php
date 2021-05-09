@@ -3,10 +3,6 @@
 $tanggal = date("Y-m-d");
 
 $query = $db->query("SELECT MAX(nomor) maximal FROM tiket_antrian WHERE hari = '{$tanggal}' ");
-if ($db->connect_errno) {
-    echo "Gagal terhubung ke database : " . $db->connect_error;
-    exit();
-}
 
 $datamax = $query->fetch_object();
 
