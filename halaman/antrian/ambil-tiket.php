@@ -1,6 +1,32 @@
 <?php
-include 'halaman/_bagian/link.php';
-?>
-Ini adalah halaman tiket
-<?php
-include 'halaman/_bagian/footer.php';
+// ambil data tanggal
+$tanggal = date("Y-m-d");
+
+$query = $db->query("SELECT MAX(nomor) maximal FROM tiket_antrian WHERE hari = '{$tanggal}' ");
+if ($db->connect_errno) {
+    echo "Gagal terhubung ke database : " . $db->connect_error;
+    exit();
+}
+
+$datamax = $query->fetch_object();
+
+if ($datamax->maximal == NULL) {
+    //belum ada data maka angka yang akan dimasukkan adalah 1
+    $hasil = $db->query("INSERT INTO `tiket_antrian`(`nomor`, `hari`, `status_tiket`, `tanggal_ambil`, `tanggal_terpanggil`) VALUES (1, '" . $tanggal . "', 'MULAI', NOW(), NULL); ");
+} else {
+    // mendapatkan angka maximal + 1
+    $angka = (int) $datamax->maximal + 1;
+    $hasil = $db->query("INSERT INTO `tiket_antrian`(`nomor`, `hari`, `status_tiket`, `tanggal_ambil`, `tanggal_terpanggil`) VALUES (" . $angka . ", '" . $tanggal . "', 'MULAI', NOW(), NULL); ");
+}
+
+if ($db->error) {
+    echo "Gagal eksekusi : ";
+    var_dump($db->error);
+    exit();
+}
+
+if ($hasil) {
+    header('Location: ?halaman=antrian-tiket&status=sukses');
+} else {
+    header('Location: ?halaman=antrian-tiket&status=gagal');
+}
