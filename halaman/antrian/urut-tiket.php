@@ -1,14 +1,36 @@
 <?php
 include 'halaman/_bagian/link.php';
+
+//menyiapkan session untuk menyimpan angka order
+if (!isset($_SESSION['URUTAN'])) $_SESSION['URUTAN'] = -1;
+
+$_SESSION['URUTAN']++;
+$urutan = $_SESSION['URUTAN'];
+
+$tanggal = date("Y-m-d");
+$query = $db->query("SELECT * FROM tiket_antrian WHERE hari = '{$tanggal}' AND status_tiket = 'MULAI';"); // mendapatkan total tiket hari ini yang masih belum terpanggil
+
+if ($urutan >= $query->num_rows - 1) {
+    $_SESSION['URUTAN'] = -1;
+}
+
+// mendapatkan data
+$query = $db->query("SELECT * FROM tiket_antrian WHERE hari = '{$tanggal}' LIMIT {$urutan},1");
+if ($db->error) {
+    echo "Gagal eksekusi : ";
+    var_dump($db->error);
+    exit();
+}
+
+$res = $query->fetch_object();
 ?>
-Ini adalah halaman urutan tiket. ambil tiket <a href="?halaman=ambil-tiket">disini</a>
+ambil tiket baru <a href="?halaman=ambil-tiket">disini</a>
 <hr>
 Urutan Tiket
 
-No. Tiket :
+No. Tiket : <?= $res->nomor ?> Silahkan menuju admin
 
-<a href="?halaman"></a>
-
+<a href="?halaman=tiket-selesai&id=<?= $res->id ?>">Verifikasi sebagai selesai</a>
 
 
 <hr>
