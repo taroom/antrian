@@ -2,20 +2,24 @@
 include 'halaman/_bagian/link.php';
 
 //menyiapkan session untuk menyimpan angka order
-if (!isset($_SESSION['URUTAN'])) $_SESSION['URUTAN'] = -1;
-
-$_SESSION['URUTAN']++;
-$urutan = $_SESSION['URUTAN'];
+if (!isset($_SESSION['URUTAN'])) $_SESSION['URUTAN'] = 0;
 
 $tanggal = date("Y-m-d");
 $query = $db->query("SELECT * FROM tiket_antrian WHERE hari = '{$tanggal}' AND status_tiket = 'MULAI';"); // mendapatkan total tiket hari ini yang masih belum terpanggil
 
-if ($urutan >= $query->num_rows - 1) {
-    $_SESSION['URUTAN'] = -1;
+$total_rows = $query->num_rows;
+
+
+
+if ($_SESSION['URUTAN'] >= $total_rows - 1) {
+    $_SESSION['URUTAN'] = 0;
 }
 
+echo $_SESSION['URUTAN'];
+
+$urutan = $_SESSION['URUTAN'];
 // mendapatkan data
-$query = $db->query("SELECT * FROM tiket_antrian WHERE hari = '{$tanggal}' LIMIT {$urutan},1");
+$query = $db->query("SELECT * FROM tiket_antrian WHERE hari = '{$tanggal}' AND status_tiket = 'MULAI' ORDER BY id LIMIT {$urutan},1");
 if ($db->error) {
     echo "Gagal eksekusi : ";
     var_dump($db->error);
@@ -26,12 +30,19 @@ $res = $query->fetch_object();
 ?>
 ambil tiket baru <a href="?halaman=ambil-tiket">disini</a>
 <hr>
-Urutan Tiket
 
-No. Tiket : <?= $res->nomor ?> Silahkan menuju admin
+<?php if ($urutan == 0 && $total_rows == 0) {
+    echo 'Selesai! Anda bisa mencetak tiket baru ';
+    $_SESSION['URUTAN'] = 0;
+} else {
+?>
+    Urutan Tiket
 
-<a href="?halaman=tiket-selesai&id=<?= $res->id ?>">Verifikasi sebagai selesai</a>
+    No. Tiket : <?= 'ID : ' . $res->id . '--' . $res->nomor ?> Silahkan menuju admin
 
+    <a href="?halaman=tiket-selesai&id=<?= $res->id ?>">Verifikasi sebagai selesai</a> |
+    <a href="?halaman=tiket-selanjutnya">Selanjutnya</a>
+<?php } ?>
 
 <hr>
 Daftar Tiket Antrian :
@@ -65,4 +76,5 @@ Daftar Tiket Antrian :
 
 
 <?php
+echo 'final urutan : ' . $_SESSION['URUTAN'];
 include 'halaman/_bagian/footer.php';
