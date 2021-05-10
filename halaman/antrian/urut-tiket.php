@@ -11,11 +11,11 @@ $total_rows = $query->num_rows;
 
 
 
-if ($_SESSION['URUTAN'] >= $total_rows - 1) {
+if ($_SESSION['URUTAN'] >= $total_rows) {
     $_SESSION['URUTAN'] = 0;
 }
 
-echo $_SESSION['URUTAN'];
+// echo $_SESSION['URUTAN'];
 
 $urutan = $_SESSION['URUTAN'];
 // mendapatkan data
@@ -31,14 +31,17 @@ $res = $query->fetch_object();
 ambil tiket baru <a href="?halaman=ambil-tiket">disini</a>
 <hr>
 
-<?php if ($urutan == 0 && $total_rows == 0) {
+<?php
+// echo 'Urutan : ' . $urutan . '<br>';
+// echo 'total row : ' . $total_rows . '<br>';
+if ($urutan == 0 && $total_rows == 0) {
     echo 'Selesai! Anda bisa mencetak tiket baru ';
     $_SESSION['URUTAN'] = 0;
 } else {
 ?>
     Urutan Tiket
 
-    No. Tiket : <?= 'ID : ' . $res->id . '--' . $res->nomor ?> Silahkan menuju admin
+    No. Tiket : <?= $res->nomor ?> Silahkan menuju admin
 
     <a href="?halaman=tiket-selesai&id=<?= $res->id ?>">Verifikasi sebagai selesai</a> |
     <a href="?halaman=tiket-selanjutnya">Selanjutnya</a>
@@ -76,5 +79,5 @@ Daftar Tiket Antrian :
 
 
 <?php
-echo 'final urutan : ' . $_SESSION['URUTAN'];
+// echo 'final urutan : ' . $_SESSION['URUTAN'];
 include 'halaman/_bagian/footer.php';
