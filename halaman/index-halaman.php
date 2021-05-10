@@ -12,6 +12,10 @@ switch ($halaman) {
         checkLempar();
         include 'antrian/ambil-tiket.php';
         break;
+    case 'tiket-selanjutnya':
+        checkLempar();
+        include 'antrian/tiket-selanjutnya.php';
+        break;
 
     case 'tiket-selesai':
         checkLempar();
