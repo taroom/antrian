@@ -1,7 +1,8 @@
 <?php
 // ambil data tanggal
-$tanggal = date("Y-m-d");
+$tanggal = date("Y-m-d");//mendapatkan tanggal hari ini
 
+// mendapatkan nomor paling tinggi di hari ini
 $query = $db->query("SELECT MAX(nomor) maximal FROM tiket_antrian WHERE hari = '{$tanggal}' ");
 
 $datamax = $query->fetch_object();

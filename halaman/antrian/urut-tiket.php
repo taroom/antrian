@@ -4,18 +4,14 @@ include 'halaman/_bagian/link.php';
 //menyiapkan session untuk menyimpan angka order
 if (!isset($_SESSION['URUTAN'])) $_SESSION['URUTAN'] = 0;
 
-$tanggal = date("Y-m-d");
+$tanggal = date("Y-m-d");//mendapatkan tanggal hari ini format 2021-06-09
 $query = $db->query("SELECT * FROM tiket_antrian WHERE hari = '{$tanggal}' AND status_tiket = 'MULAI';"); // mendapatkan total tiket hari ini yang masih belum terpanggil
 
 $total_rows = $query->num_rows;
 
-
-
 if ($_SESSION['URUTAN'] >= $total_rows) {
     $_SESSION['URUTAN'] = 0;
 }
-
-// echo $_SESSION['URUTAN'];
 
 $urutan = $_SESSION['URUTAN'];
 // mendapatkan data

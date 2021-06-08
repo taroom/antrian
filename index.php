@@ -1,6 +1,6 @@
 <?php
-include 'konfigurasi/database.php';
-include 'konfigurasi/fungsi.php';
+include 'utilitas/database.php';
+include 'utilitas/fungsi.php';
 session_start();
 ?>
 <!DOCTYPE html>
