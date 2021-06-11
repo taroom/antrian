@@ -15,6 +15,10 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link" href="?halaman=tiket-chart">Chart</a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link" href="?halaman=logout">Logout</a>
         </li>
         <?php } else { ?>

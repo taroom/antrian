@@ -22,6 +22,11 @@ switch ($halaman) {
         include 'antrian/tiket-selesai.php';
         break;
 
+    case 'tiket-chart':
+        checkLempar();
+        include 'antrian/tiket-chart.php';
+        break;
+
         //user
     case 'login':
         include 'user/login.php';
