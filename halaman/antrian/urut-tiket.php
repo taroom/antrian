@@ -24,7 +24,8 @@ if ($db->error) {
 
 $res = $query->fetch_object();
 ?>
-ambil tiket baru <a href="?halaman=ambil-tiket">disini</a>
+
+<a class="btn btn-primary btn-lg btn-block" href="?halaman=ambil-tiket">ambil tiket baru disini</a>
 <hr>
 
 <?php
@@ -36,18 +37,24 @@ if ($urutan == 0 && $total_rows == 0) {
 } else {
 ?>
     Urutan Tiket
+    <div class="jumbotron text-center">
+    <h4>No. Tiket :</h4> 
 
-    No. Tiket : <?= $res->nomor ?> Silahkan menuju admin
+    <h2><?= $res->nomor ?> </h2>
 
-    <a href="?halaman=tiket-selesai&id=<?= $res->id ?>">Verifikasi sebagai selesai</a> |
-    <a href="?halaman=tiket-selanjutnya">Selanjutnya</a>
+    <h4>Silahkan menuju admin</h4>
+    </div>
+
+    <a class="btn btn-danger btn-lg btn-block" href="?halaman=tiket-selesai&id=<?= $res->id ?>">Verifikasi sebagai selesai</a> 
+    <a class="btn btn-primary btn-lg btn-block" href="?halaman=tiket-selanjutnya">Selanjutnya</a>
+
 <?php } ?>
 
 <hr>
 Daftar Tiket Antrian :
 <br>
 
-<table>
+<table class="table table-hover">
     <tr>
         <th>Urutan</th>
         <th>Status</th>

@@ -1,14 +1,15 @@
 <?php
 include 'halaman/_bagian/link.php';
 ?>
-Halaman Login <br>
+
 <form action="?halaman=login-proses" method="POST">
     username : <br>
-    <input type="text" name="usernameku" placeholder="masukkan username"><br>
+    <input type="text" name="usernameku" class="form-control" placeholder="masukkan username"><br>
     password : <br>
-    <input type="password" name="passwordku" placeholder="masukkan password"><br>
+    <input type="password" name="passwordku" class="form-control" placeholder="masukkan password"><br>
 
-    <input type="submit" name="login" value="Login">
+    <input type="submit" class="btn btn-primary btn-block btn-lg" name="login" value="Login">
 </form>
+
 <?php
 include 'halaman/_bagian/footer.php';

@@ -1,2 +1,7 @@
+
 <hr>
-Di program oleh Agus Sutarom
+
+<div class="text-center">
+	Di program oleh Agus Sutarom
+</div>
+
